@@ -1,0 +1,129 @@
+import axios from 'axios'
+const GITHUB_URL = process.env.REACT_APP_GITHUB_URL
+const GITHUB_TOKEN = process.env.REACT_APP_GITHUB_TOKEN
+
+const github = axios.create({
+  baseURL: GITHUB_URL,
+  headers: { Authorization: `token ${GITHUB_TOKEN}` },
+})
+
+// Get search results
+export const searchUsers = async (text) => {
+  const params = new URLSearchParams({
+    q: text,
+  })
+
+  const response = await github.get(`/search/users?${params}`)
+  return response.data.items
+}
+
+// Get user and repos
+export const getUserAndRepos = async (login) => {
+  const [user, repos] = await Promise.all([
+    github.get(`/users/${login}`),
+    github.get(`/users/${login}/repos`),
+  ])
+
+  return { user: user.data, repos: repos.data }
+}
+
+
+
+
+
+
+
+// import React, { useReducer } from 'react';
+// import axios from 'axios';
+// import GithubContext from './githubContext';
+// import GithubReducer from './githubReducer';
+// import {
+//   SEARCH_USERS,
+//   SET_LOADING,
+//   CLEAR_USERS,
+//   GET_USER,
+//   GET_REPOS
+// } from '../types';
+
+// // We will now directly use the environment variables defined in your .env file.
+// let githubUrl = process.env.REACT_APP_GITHUB_URL;
+// let githubClientId = process.env.REACT_APP_GITHUB_CLIENT_ID;
+// let githubClientSecret = process.env.REACT_APP_GITHUB_CLIENT_SECRET;
+
+// const GithubState = props => {
+//   const initialState = {
+//     users: [],
+//     user: {},
+//     repos: [],
+//     loading: false
+//   };
+
+//   const [state, dispatch] = useReducer(GithubReducer, initialState);
+
+//   // Search Users
+//   const searchUsers = async text => {
+//     setLoading();
+
+//     const res = await axios.get(
+//       `${githubUrl}/search/users?q=${text}&client_id=${githubClientId}&client_secret=${githubClientSecret}`
+//     );
+
+//     dispatch({
+//       type: SEARCH_USERS,
+//       payload: res.data.items
+//     });
+//   };
+
+//   // Get User
+//   const getUser = async username => {
+//     setLoading();
+
+//     const res = await axios.get(
+//       `${githubUrl}/users/${username}?client_id=${githubClientId}&client_secret=${githubClientSecret}`
+//     );
+
+//     dispatch({
+//       type: GET_USER,
+//       payload: res.data
+//     });
+//   };
+
+//   // Get Repos
+//   const getUserRepos = async username => {
+//     setLoading();
+
+//     const res = await axios.get(
+//       `${githubUrl}/users/${username}/repos?per_page=5&sort=created:asc&client_id=${githubClientId}&client_secret=${githubClientSecret}`
+//     );
+
+//     dispatch({
+//       type: GET_REPOS,
+//       payload: res.data
+//     });
+//   };
+
+//   // Clear Users
+//   const clearUsers = () => dispatch({ type: CLEAR_USERS });
+
+//   // Set Loading
+//   const setLoading = () => dispatch({ type: SET_LOADING });
+
+//   return (
+//     <GithubContext.Provider
+//       value={{
+//         users: state.users,
+//         user: state.user,
+//         repos: state.repos,
+//         loading: state.loading,
+//         searchUsers,
+//         clearUsers,
+//         getUser,
+//         getUserRepos
+//       }}
+//     >
+//       {props.children}
+//     </GithubContext.Provider>
+//   );
+// };
+
+// export default GithubState;
