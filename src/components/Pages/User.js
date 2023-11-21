@@ -71,8 +71,8 @@ const User = () => {
       {/* <div className="container-fluid p-4" style={{ maxWidth: "83%", backgroundColor: '#f8f9fa' }}> */}
 
         <div className="mb-4">
-          <Link to='/' className="btn btn-outline-secondary"
-          style={{color:"#00256B."}}>
+          <Link to='/' className="btn btn-light"
+          style={{color:"#002147"}}>
           <i className="fa fa-chevron-left"></i> Back to search
           </Link>
         </div>

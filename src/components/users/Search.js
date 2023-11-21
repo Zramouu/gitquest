@@ -1,89 +1,101 @@
 import React, { useState, useContext } from 'react';
-import { useNavigate } from 'react-router-dom';
 import GithubContext from '../../context/Github/githubContext';
 import AlertContext from '../../context/alert/AlertContext';
 import { searchUsers } from '../../context/Github/GithubState';
 
 const Search = () => {
-
   const [text, setText] = useState('');
-  const { users, dispatch } = useContext(GithubContext);
-  const {setAlert} = useContext(AlertContext);
-  const navigate = useNavigate();
+  const githubContext = useContext(GithubContext);
+  const alertContext = useContext(AlertContext);
 
-  const onChange = (e) => setText(e.target.value)
-  // const onSubmit = async (e) => {
-  //   e.preventDefault()
-  //   if (text === '') {
-  //     setAlert('Please enter something', 'error')
-  //   } else {
-  //     dispatch({ type: 'SET_LOADING' })
-  //     const users = await searchUsers(text)
-  //     dispatch({ type: 'GET_USERS', payload: users })
+  const onChange = (e) => setText(e.target.value);
 
-  //     setText('')
-  //   }
-  // }
   const onSubmit = async (e) => {
     e.preventDefault();
     if (text === '') {
-      setAlert('Please enter something', 'error');
+      alertContext.setAlert('Please enter something', 'error');
     } else {
-      dispatch({ type: 'SET_LOADING' });
+      githubContext.dispatch({ type: 'SET_LOADING' });
       const users = await searchUsers(text);
-      dispatch({ type: 'GET_USERS', payload: users });
-      navigate("/results");  // This line navigates to the results page
+      githubContext.dispatch({ type: 'GET_USERS', payload: users });
       setText('');
     }
   };
-  
+
   return (
-    <div className="px-2">
-      <div className="row m-0 p-0">
-        <form onSubmit={onSubmit} className="form col-12" id="my-form">
-          <div className="row m-0">
-            <input
-              className="form-control form-control-sm col-8"
-              type="text"
-              placeholder="Search User e.g. Taylor Otwell"
-              id="search-button"
-              value={text}
-              onChange={onChange}
-             // onKeyDown={onEnter}
-/>
-      {users.length > 0 && (
-        <button
-            onClick={() => dispatch({ type: 'CLEAR_USERS' })}
-            className='btn btn-black btn-lg'
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'flex-start', 
+      alignItems: 'center', 
+      paddingTop: '20px',
+      backgroundColor: '#FFFFFF',
+      width: '100%',
+    }}>
+      <form onSubmit={onSubmit} style={{ width: '100%', maxWidth: '600px' }}>
+        <div style={{
+          display: 'flex',
+          position: 'relative',
+        }}>
+          <input
+            type="text"
+            value={text}
+            onChange={onChange}
+            placeholder="Search User "
+            style={{
+              flex: 1,
+              height: '50px',
+              padding: '10px',
+              fontSize: '18px',
+              fontFamily:"arial",
+              letterSpacing: '2px',
+              outline: 'none',
+              borderRadius: '25px',
+              backgroundColor: '#FCFCFC',
+              color: '#000000',
+              border: '1px solid #DDD',
+            }}
+          />
+          <button
+            type="submit"
+            style={{
+              width: '50px',
+              height: '50px',
+              border: 'none',
+              fontSize: '20px',
+              fontWeight: 'bold',
+              outline: 'none',
+              cursor: 'pointer',
+              borderRadius: '50%',
+              color: '#FFFFFF',
+              backgroundColor: '#002147',
+              marginLeft: '10px',
+            }}
           >
-            Clear
+            <i className="fa fa-search" style={{ fontSize: '1.2rem' }}></i>
           </button>
-      )}
-   </div>
-        </form>
-      </div>
+        </div>
+        {githubContext.users.length > 0 && (
+          <div style={{ width: '100%', display: 'flex', justifyContent: 'center', marginTop: '1rem' }}>
+            <button
+              type="button"
+              onClick={() => githubContext.dispatch({ type: 'CLEAR_USERS' })}
+              style={{
+                backgroundColor: "#002147",
+                color: 'white',
+                padding: '0.5rem 1rem',
+                borderRadius: '5px',
+                cursor: 'pointer',
+                border: 'none',
+              }}
+            >
+              Clear
+            </button>
+          </div>
+        )}
+      </form>
     </div>
   );
 };
 
 export default Search;
-
-
-// eslint-disable-next-line no-lone-blocks
-{/* 
-    // <div>
-    //   <form onSubmit={onSubmit} className='form'>
-    //     <input */}
-    //       type='text'
-    //       name='text'
-    //       placeholder='Search User '
-    //       value={text}
-    //       onChange={onChange}
-    //     />
-    //     <input
-    //       type='submit'
-    //       value='Search'
-    //       className='btn btn-dark btn-block'
-    //       //class="btn btn-primary btn-block"
-    //     />
-    //   </form>

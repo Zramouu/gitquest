@@ -1,34 +1,38 @@
 import React, { Fragment } from "react";
-// import UsersResult from "../users/UsersResult";
-// import GithubContext from "../../context/Github/githubContext";
-// import { useContext } from "react";
+import UsersResult from "../users/UsersResult";
+import GithubContext from "../../context/Github/githubContext";
+import { useContext } from "react";
 import Search from "../users/Search";
 
-export const Home = () => {
-    //const githubContext = useContext(GithubContext);
-
-    const styles = {
-        gradientBackground: {
-          background: 'linear-gradient(to right, #FFFFF, #F0F8FF)',
-            height: '100vh',
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-            paddingTop: '60px'
-        },
-        shadow: {
-            boxShadow: '0 4px 8px rgba(0,0,0,0.1)'
-        }
-    };
+export const Home =() =>{
+    const githubContext = useContext(GithubContext);
 
     return (
-        <Fragment>
-            <div style={styles.gradientBackground}>
-                <Search style={styles.shadow} />
-            </div>
-        </Fragment>
+      <Fragment>
+        <Search />
+        <div
+          className="mt-1"
+          style={{ borderTop: "0.1rem solid", minHeight: "vh" }}
+        >
+          <div>
+            {githubContext.users.length > 0 ? (
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <h2 className="ml-2 mt-3" style={{color: "#034694"}}>Profiles</h2>
+              </div>
+            ) : (
+              console.log("")
+            )}
+            <UsersResult />
+          </div>
+        </div>
+      </Fragment>
     );
-};
-
-export default Home;
+  };
+  
+  export default Home;

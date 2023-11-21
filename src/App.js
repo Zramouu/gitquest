@@ -6,14 +6,10 @@ import { Footer } from "./components/Layout/Footer";
 import Alert from "./components/Layout/Alert";
 import About from "./components/Pages/About";
 import Home from "./components/Pages/Home";
-import ResultsPage from "./components/Pages/ResultsPage";
 import ErrorPage from "./components/Pages/ErrorPage";
 import { GithubProvider } from './context/Github/githubContext';
 import { AlertProvider } from "./context/alert/AlertContext";
 import User from "./components/Pages/User";
-//import GithubState from './context/Github/GithubState';
-//import AlertState from './context/Alert/AlertState';
-//import { ErrorBoundary } from './components/Pages/ErrorPage';
 
 function App() {
   return (
@@ -24,13 +20,12 @@ function App() {
       <div className="App" style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>        
       <Navbarcustom
           icon="fa fa-github"
-          title="InsightHub Searcher"
+          title="InsightHub"
           style={{ color: "white" }}
         />
         <Alert/>
         <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/results" element={<ResultsPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/user/:login" element={<User />} />
         <Route path="*" element={<ErrorPage />} />

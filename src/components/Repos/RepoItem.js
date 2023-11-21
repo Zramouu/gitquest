@@ -28,7 +28,7 @@ function RepoItem({ repo }) {
         fontSize: '1.02rem' }}>
       <a href={html_url} style={{ 
         textDecoration: 'none', 
-        color: '#00256B.' }}>
+        color: '#034694.' }}>
       <FaLink style={{ verticalAlign: 'middle', marginRight: '0.25rem' }} />
       {name}
       </a>
@@ -43,7 +43,7 @@ function RepoItem({ repo }) {
           style={{
             marginRight: '0.5rem', 
             backgroundColor: '#f7f7f7', 
-            color: '#00256B.', 
+            color: '#034694.', 
             borderRadius: '0.25rem', 
             padding: '0.25rem 0.5rem'}}>
             <AiOutlineEye
@@ -55,7 +55,7 @@ function RepoItem({ repo }) {
           <span style={{
             marginRight: '0.5rem', 
             backgroundColor: '#f7f7f7', 
-            color: '#00256B.', 
+            color: '#034694.', 
             borderRadius: '0.25rem', 
             padding: '0.25rem 0.5rem'}}>
             <AiOutlineStar style={{
@@ -65,7 +65,7 @@ function RepoItem({ repo }) {
           <span style={{
             marginRight: '0.5rem', 
             backgroundColor: '#f7f7f7', 
-            color: '#00256B.', 
+            color: '#034694.', 
             borderRadius: '0.25rem', 
             padding: '0.25rem 0.5rem'}}>
             <BiGitCompare style={{marginRight: '0.5rem'}} /> 
@@ -74,7 +74,7 @@ function RepoItem({ repo }) {
           <span style={{
             marginRight: '0.5rem', 
             backgroundColor: '#f7f7f7', 
-            color: '#00256B.', 
+            color: '#034694.', 
             borderRadius: '0.25rem', 
             padding: '0.25rem 0.5rem'}}>
             <FaGitAlt style={{
@@ -98,22 +98,3 @@ export default RepoItem;
 
 
 
-
-// import React from 'react';
-// import PropTypes from 'prop-types';
-
-// const RepoItem = ({ repo }) => {
-//   return (
-//     <div className='card'>
-//       <h3>
-//         <a href={repo.html_url}>{repo.name}</a>
-//       </h3>
-//     </div>
-//   );
-// };
-
-// RepoItem.propTypes = {
-//   repo: PropTypes.object.isRequired
-// };
-
-// export default RepoItem;
